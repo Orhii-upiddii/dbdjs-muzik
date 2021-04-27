@@ -34,24 +34,6 @@ for (const file of reader) {
 	});
 }
 
-bot.interactionCommand({
-	name: 'çal',
-	code: `$author[Müzik çalınmaya başlandı;$authorAvatar]
-$description[Aranan kelime \`$message\`
-Bulunan Şarkı : $replaceText[$get[şarkı];;$songInfo[title];-1]
-Şarkı Açıklaması : $songInfo[description]
-Şarkı uzunluğu : $replaceText[$replaceText[$songInfo[duration];Seconds;Saniye;-1];Second;Saniye;-1]
-Şarkı Linki : [Tıkla]($songInfo[url])
-Kanal : [$songInfo[publisher]]($songInfo[publisher_url])
-Çalan kişi : $userTag[$authorID]]
-$thumbnail[$songInfo[thumbnail]]
-$color[303136]
-$setServerVar[şarkı;$authorID]
-$let[$playSong[$message;...;yes;yes;:x: \`$message\` adında bir müzik bulamadım.]]
-$suppressErrors[Şarkı çalmazken kullanamazsın]
-$onlyIf[$voiceID!=;Bir ses kanalına girmezsen kullanamazsın]
-$argsCheck[>1;Lütfen bir şarkı adı gir]`
-});
 
 bot.command({
 	name: 'çek',
