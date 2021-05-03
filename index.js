@@ -89,17 +89,18 @@ bot.command({
 	aliases: ['play'],
 	code: `$author[Müzik çalınmaya başlandı;$authorAvatar]
 $description[Aranan kelime \`$message\`
-Bulunan Şarkı : $replaceText[$get[şarkı];;$songInfo[title];-1]
-Şarkı Açıklaması : $songInfo[description]
+Bulunan Şarkı : $jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;title]
+Şarkı İzlenmesi : $jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;views]
 Şarkı uzunluğu : $replaceText[$replaceText[$songInfo[duration];Seconds;Saniye;-1];Second;Saniye;-1]
-Şarkı Linki : [Tıkla]($songInfo[url])
-Kanal : [$songInfo[publisher]]($songInfo[publisher_url])
+Şarkı Linki : [Tıkla]($jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;url])
+Kanal : [$jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;uploader_name]]($jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;uploader_url])
 Çalan kişi : $userTag[$authorID]]
-$thumbnail[$songInfo[thumbnail]]
+$thumbnail[$jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;thumbnail]]
 $color[303136]
 $setServerVar[şarkı;$authorID]
 $let[$playSong[$message;...;yes;yes;:x: \`$message\` adında bir müzik bulamadım.]]
 $suppressErrors[Şarkı çalmazken kullanamazsın]
+$onlyIf[$replaceText[$jsonRequest[https://api.somecool.repl.co/yt-search?search=$message;duration];:;;-1]=<$replaceText[3:00:00;:;;-1];:x: 3 saatten uzun süreli şarkı açamazsın!]
 $onlyIf[$voiceID!=;Bir ses kanalına girmezsen kullanamazsın]
 $argsCheck[>1;Lütfen bir şarkı adı gir]`
 });
